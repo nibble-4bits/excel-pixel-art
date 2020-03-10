@@ -13,8 +13,11 @@ if __name__ == '__main__':
                         help='Name of the resulting Excel workbook, if not provided default value will be "Pixel Art"')
     parser.add_argument('-c', '--cellsize', type=int, default=10,
                         help='The size (width and height) in pixels of the cells where the image will be drawn, if not provided default value will be 10px')
+    parser.add_argument('-s', '--scale', type=int, default=1,
+                        help='The scale of the pixel image')
 
     args = parser.parse_args()
 
-    excelPixelator = ExcelPixelator(args.input, args.output, args.filename, args.cellsize)
+    excelPixelator = ExcelPixelator(
+        args.input, args.output, args.filename, args.cellsize, args.scale)
     excelPixelator.create_pixel_art()
