@@ -19,18 +19,36 @@ class ExcelPixelator:
         wb.remove(wb['Sheet'])  # remove default worksheet
 
         width, height = self.image.size
-        pixel_map = [[0 for x in range(width // self.scale)] for y in range(height // self.scale)]
-        squares = width * height // self.scale ** 2
+        pixel_map = self.get_pixel_map(width, height)
+
+        for row in range(len(pixel_map)):
+            ws.row_dimensions[row + 1].height = self.cell_size * 10 / default_excel_font_size
+            for col in range(len(pixel_map[row])):
+                curr_col = get_column_letter(col + 1)
+                ws.column_dimensions[curr_col].width = self.cell_size / 9
+
+                rgbTuple = pixel_map[row][col]
+                fill_color = self.__rgbToHex(rgbTuple)
+                ws[f'{curr_col}{row + 1}'].fill = PatternFill(start_color=fill_color, end_color=fill_color, fill_type='solid')
+
+        wb.save(f'{self.output_path}/{self.file_name}.xlsx')
+        wb.close()
+
+    def get_pixel_map(self, w, h):
+        pixel_map = [[0 for x in range(w // self.scale)] for y in range(h // self.scale)]
+        squares = w * h // self.scale ** 2
         i, j = 0, 0
-        for square in range(squares):
+
+        for sq in range(squares):
             rAvg, gAvg, bAvg = 0, 0, 0
-            row_start = (square * self.scale // width) * self.scale
+            row_start = (sq * self.scale // h) * self.scale
             row_end = row_start + self.scale
-            col_start = square * self.scale % height
+            col_start = sq * self.scale % w
             col_end = col_start + self.scale
-            for coll in range(row_start, row_end):
-                for roww in range(col_start, col_end):
-                    r, g, b = self.image.getpixel((roww, coll))
+
+            for row in range(row_start, row_end):
+                for col in range(col_start, col_end):
+                    r, g, b = self.image.getpixel((col, row))
                     rAvg += r
                     gAvg += g
                     bAvg += b
@@ -38,22 +56,10 @@ class ExcelPixelator:
             gAvg //= self.scale ** 2
             bAvg //= self.scale ** 2
             pixel_map[i][j] = (rAvg, gAvg, bAvg)
-            i = i + 1 if j >= (width // self.scale) - 1 else i
-            j = (j + 1) % (height // self.scale)
+            i = i + 1 if j >= (w // self.scale) - 1 else i
+            j = (j + 1) % (w // self.scale)
 
-        for _row in range(len(pixel_map)):
-            ws.row_dimensions[_row + 1].height = self.cell_size * 10 / default_excel_font_size
-            for _col in range(len(pixel_map[_row])):
-                curr_col = get_column_letter(_col + 1)
-                ws.column_dimensions[curr_col].width = self.cell_size / 9
-
-                rgbTuple = pixel_map[_row][_col]
-                fill_color = self.__rgbToHex(rgbTuple)
-                ws[f'{curr_col}{_row + 1}'].fill = PatternFill(
-                    start_color=fill_color, end_color=fill_color, fill_type='solid')
-
-        wb.save(f'{self.output_path}/{self.file_name}.xlsx')
-        wb.close()
+        return pixel_map
 
     def __rgbToHex(self, rgbTuple):
         return ('%02x%02x%02x' % rgbTuple).upper()
