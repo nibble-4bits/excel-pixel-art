@@ -5,12 +5,12 @@ from PIL import Image
 
 
 class ExcelPixelator:
-    def __init__(self, input_path, output_path, file_name, cell_size, scale):
+    def __init__(self, input_path, output_path, file_name, cell_size, pixel_size):
         self.image = Image.open(input_path).convert('RGB')
         self.output_path = output_path
         self.file_name = file_name
         self.cell_size = cell_size  # size of the cell in pixels
-        self.scale = scale
+        self.pixel_size = pixel_size
 
     def create_pixel_art(self):
         default_excel_font_size = 16
@@ -35,16 +35,16 @@ class ExcelPixelator:
         wb.close()
 
     def get_pixel_map(self, w, h):
-        pixel_map = [[0 for x in range(w // self.scale)] for y in range(h // self.scale)]
-        squares = w * h // self.scale ** 2
+        pixel_map = [[0 for x in range(w // self.pixel_size)] for y in range(h // self.pixel_size)]
+        squares = w * h // self.pixel_size ** 2
         i, j = 0, 0
 
         for sq in range(squares):
             rAvg, gAvg, bAvg = 0, 0, 0
-            row_start = (sq * self.scale // h) * self.scale
-            row_end = row_start + self.scale
-            col_start = sq * self.scale % w
-            col_end = col_start + self.scale
+            row_start = (sq * self.pixel_size // h) * self.pixel_size
+            row_end = row_start + self.pixel_size
+            col_start = sq * self.pixel_size % w
+            col_end = col_start + self.pixel_size
 
             for row in range(row_start, row_end):
                 for col in range(col_start, col_end):
@@ -52,12 +52,12 @@ class ExcelPixelator:
                     rAvg += r
                     gAvg += g
                     bAvg += b
-            rAvg //= self.scale ** 2
-            gAvg //= self.scale ** 2
-            bAvg //= self.scale ** 2
+            rAvg //= self.pixel_size ** 2
+            gAvg //= self.pixel_size ** 2
+            bAvg //= self.pixel_size ** 2
             pixel_map[i][j] = (rAvg, gAvg, bAvg)
-            i = i + 1 if j >= (w // self.scale) - 1 else i
-            j = (j + 1) % (w // self.scale)
+            i = i + 1 if j >= (w // self.pixel_size) - 1 else i
+            j = (j + 1) % (w // self.pixel_size)
 
         return pixel_map
 
