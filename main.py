@@ -19,5 +19,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     excelPixelator = ExcelPixelator(
-        args.input, args.output, args.filename, args.cellsize, args.scale)
+        args.input, args.output, args.filename, args.cellsize, args.pixelsize)
     excelPixelator.create_pixel_art()
