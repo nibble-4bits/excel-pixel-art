@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ### Usage
 ```shell
-python main.py [-h] [-o OUTPUT] [-f FILENAME] [-c CELLSIZE] input
+python main.py [-h] [-o OUTPUT] [-f FILENAME] [-c CELLSIZE] [-p PIXELSIZE] input
 
 positional arguments:
   input                 The path to the input image
@@ -33,4 +33,12 @@ optional arguments:
                         The size (width and height) in pixels of the cells
                         where the image will be drawn, if not provided default
                         value will be 10px
+  -p PIXELSIZE, --pixelsize PIXELSIZE
+                      The size of the pixels of the input image. A bigger
+                      value means the resulting image will look more
+                      pixelated. This value must be a number divisible
+                      exactly by both the image width and height. If not
+                      provided default value will be 1, which means that one
+                      pixel in the input image will map to one cell in the
+                      Excel workbook
 ```
