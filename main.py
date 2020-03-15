@@ -13,8 +13,8 @@ if __name__ == '__main__':
                         help='Name of the resulting Excel workbook, if not provided default value will be "Pixel Art"')
     parser.add_argument('-c', '--cellsize', type=int, default=10,
                         help='The size (width and height) in pixels of the cells where the image will be drawn, if not provided default value will be 10px')
-    parser.add_argument('-s', '--scale', type=int, default=1,
-                        help='The scale of the pixel image')
+    parser.add_argument('-p', '--pixelsize', type=int, default=1,
+                        help='The size of the pixels of the input image. A bigger value means the resulting image will look more pixelated. This value must be a number divisible exactly by both the image width and height. If not provided default value will be 1, which means that one pixel in the input image will map to one cell in the Excel workbook')
 
     args = parser.parse_args()
 
