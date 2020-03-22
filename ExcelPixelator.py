@@ -12,6 +12,8 @@ class ExcelPixelator:
         self.cell_size = cell_size  # size of the cell in pixels
         self.pixel_size = pixel_size
 
+        self.__is_pixelsize_common_factor()
+
     def create_pixel_art(self):
         default_excel_font_size = 16
         wb = Workbook()
@@ -63,3 +65,9 @@ class ExcelPixelator:
 
     def __rgbToHex(self, rgbTuple):
         return ('%02x%02x%02x' % rgbTuple).upper()
+
+    def __is_pixelsize_common_factor(self):
+        width, height = self.image.size
+        if width % self.pixel_size != 0 or height % self.pixel_size != 0:
+            print('ERROR: Pixel size must be a number divisible exactly by both the image width and height')
+            exit(1)
