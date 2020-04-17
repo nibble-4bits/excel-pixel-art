@@ -30,9 +30,9 @@ optional arguments:
                         Name of the resulting Excel workbook, if not provided
                         default value will be "Pixel Art"
   -c CELLSIZE, --cellsize CELLSIZE
-                        The size (width and height) in pixels of the cells
-                        where the image will be drawn, if not provided default
-                        value will be 10px
+                        The size (width and height) in pixels of the workbook
+                        cells where the image will be drawn, if not provided
+                        default value will be 10px
   -p PIXELSIZE, --pixelsize PIXELSIZE
                         The size of the pixels of the input image. A bigger
                         value means the resulting image will look more
