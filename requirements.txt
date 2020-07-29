@@ -1,2 +1,2 @@
 openpyxl==3.0.3
-Pillow==7.0.0
+Pillow>=7.1.0
