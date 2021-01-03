@@ -56,3 +56,7 @@ optional arguments:
                         pixel in the input image will map to one cell in the
                         Excel workbook
 ```
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
