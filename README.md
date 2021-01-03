@@ -1,12 +1,25 @@
 # Excel Pixel Art
+
 A simple Python program that takes an image as input and outputs an Excel workbook containing said image.
 
 It works by getting the average of each pixel's RGB data and then applying the resulting color to each corresponding cell in Excel.
 
+## Example
+
+#### Original image
+
+![Van Gogh - Starry Night](starry-night-512px.jpg)
+
+#### Excel Workbook Pixel Art
+
+![Starry Night Excel Pixel Art](starry-night-pixel-art.jpg)
+
 ## Prerequisites
-* Python 3.6 or above
+
+- Python 3.6 or above
 
 ## Install
+
 ```shell
 git clone https://github.com/nibble-4bits/excel-pixel-art.git
 cd excel-pixel-art
@@ -14,6 +27,7 @@ pip install -r requirements.txt
 ```
 
 ### Usage
+
 ```shell
 python main.py [-h] [-o OUTPUT] [-f FILENAME] [-c CELLSIZE] [-p PIXELSIZE] input
 
